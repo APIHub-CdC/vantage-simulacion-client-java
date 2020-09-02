@@ -43,7 +43,6 @@ Es importante contar con el setUp() que se encargará de inicializar la petició
 
 ```java
 // TODO
-}
 ```
 
 La petición se deberá modificar el siguiente fragmento de código con los datos correspondientes:
