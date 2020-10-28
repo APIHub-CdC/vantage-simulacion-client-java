@@ -52,6 +52,8 @@ public void setUp() {
 
 La petición se deberá modificar el siguiente fragmento de código con los datos correspondientes:
 
+> **NOTA:** Para más ejemplos de simulación, consulte la colección de Postman.
+
 ```java
 @Test
 public void getVantageAportantesTest() throws ApiException {
