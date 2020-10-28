@@ -1,11 +1,34 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>io.vantage-simualcion</groupId>
-    <artifactId>vantage-simualcion-client</artifactId>
+    <groupId>com.cdc.apihub.mx.vantage</groupId>
+    <artifactId>vantage-simualcion-client-java</artifactId>
     <packaging>jar</packaging>
-    <name>vantage-simualcion-client</name>
-    <version>1.0.0</version>
+    <name>vantage-simualcion-client-java</name>
+    <version>1.0.1-SNAPSHOT</version>
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub APIHub-CdC Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/APIHub-CdC/vantage-simualcion-client-java</url>
+        </repository>
+    </distributionManagement>
+    <developers>
+        <developer>
+            <name>API Hub</name>
+            <email>api@circulodecredito.com.mx</email>
+            <organization>com.cdc.apihub</organization>
+            <organizationUrl>https://github.com/APIHub-CdC/vantage-simualcion-client-java</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/APIHub-CdC/vantage-simualcion-client-java.git</connection>
+        <developerConnection>scm:git:https://github.com/APIHub-CdC/vantage-simualcion-client-java.git
+        </developerConnection>
+        <url>https://github.com/APIHub-CdC/vantage-simualcion-client-java</url>
+        <tag>vantage-simualcion-client-java</tag>
+    </scm>    
     <licenses>
         <license>
             <name>License</name>
