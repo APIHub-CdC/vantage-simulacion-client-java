@@ -37,7 +37,7 @@ Al iniciar sesión seguir los siguientes pasos:
 
 ### Paso 2. Capturar los datos de la petición
 
-Los siguientes datos a modificar se encuentran en ***src/test/java/io/vantage/simulacion/mx/client/api/VantAgeApiTest.java***
+Los siguientes datos a modificar se encuentran en ***src/test/java/com/cdc/apihub/mx/vantage/test/ApiTest.java***
 
 Es importante contar con el setUp() que se encargará de inicializar la petición. Por tanto, se debe modificar la URL (**urlApi**); y la API KEY (**xApiKey**), como se muestra en el siguiente fragmento de código:
 
@@ -52,37 +52,92 @@ public void setUp() {
 
 La petición se deberá modificar el siguiente fragmento de código con los datos correspondientes:
 
+> **NOTA:** Para más ejemplos de simulación, consulte la colección de Postman.
+
 ```java
 @Test
 public void getVantageAportantesTest() throws ApiException {
-    AportantesPeticion body = new AportantesPeticion();
-    body.setFolio("123456");
-    body.setFechaProceso("dd/MM/yyyy");
-    body.setNumeroCuenta("00000000");
-    body.setDiasAtraso(10);
-    Respuesta response = api.getVantageAportantes(this.xApiKey, body);
-    this.logger.info(response.toString());
+    
+    AportantesPeticion peticion = new AportantesPeticion();
+    
+    Integer estatusOK = 200;
+    Integer estatusNoContent = 204;
+    
+    try {
+        
+        peticion.setFolio("1500001");
+        peticion.setTipoContrato(CatalogoContrato.CA);
+        peticion.setNumeroCuenta("2000001");
+        peticion.setDiasAtraso(21);
+        
+        ApiResponse<?> response = api.getGenericVantageAportantes(xApiKey, peticion);
+
+        Assert.assertTrue(estatusOK.equals(response.getStatusCode()));
+        
+        if(estatusOK.equals(response.getStatusCode())) {
+            Respuesta responseOK = (Respuesta) response.getData();
+            logger.info("Vantage Aportantes Test: "+responseOK.toString());
+        }
+        
+    }catch (ApiException e) {
+        if(!estatusNoContent.equals(e.getCode())) {
+            logger.info("Error getVantageAportantesTest: "+e.getResponseBody());
+        }
+        Assert.assertTrue(estatusOK.equals(e.getCode()));
+    }        
 }
 
 
 @Test
 public void getVantageNoAportantesTest() throws ApiException {
+
     PersonaPeticion persona = new PersonaPeticion();
-    NoAportantesPeticion body = new NoAportantesPeticion();
+    DomicilioPeticion domicilio = new DomicilioPeticion();
+    NoAportantesPeticion request = new NoAportantesPeticion();
     
-    persona.setPrimerNombre("NOMBRE");
-    persona.setApellidoPaterno("PATERNO");
-    persona.setApellidoMaterno("MATERNO");
-    persona.setFechaNacimiento("1986-06-27");
-    body.setFolio("123456");
-    body.setFechaProceso("dd/MM/yyyy");
-    body.setTipoContrato(CatalogoContrato.AA);
-    body.setFrecuenciaPago(CatalogoFrecuenciaPago.N);
-    body.setDiasAtraso(10);
-    body.setPersona(persona);
+    Integer estatusOK = 200;
+    Integer estatusNoContent = 204;
     
-    Respuesta response = api.getVantageNoAportantes(this.xApiKey, body);
-    this.logger.info(response.toString());
+    try {
+        
+        domicilio.setDireccion("PASADISO ENCONTRADO 1");
+        domicilio.setColoniaPoblacion("MONTEVIDEO");
+        domicilio.setDelegacionMunicipio("GUSTAVO A MADERO");
+        domicilio.setCiudad("CIUDAD DE MÉXICO");
+        domicilio.setEstado(CatalogoEstados.CDMX);
+        domicilio.setCP("07730");
+
+        persona.setPrimerNombre("JUAN01");
+        persona.setApellidoPaterno("PRUEBAP01");
+        persona.setApellidoMaterno("PRUEBAM01");
+        persona.setFechaNacimiento("1980-01-01");
+        persona.setDomicilio(domicilio);
+
+        request.setFolio("1600001");
+        request.setTipoProducto(CatalogoProducto.R);
+        request.setTipoContrato(CatalogoContrato.TC);
+        request.setFrecuenciaPago(CatalogoFrecuenciaPago.M);
+        request.setDiasAtraso(21);
+        request.setNumeroCuenta("3000001");
+        request.setFechaApertura("2019-01-01");
+        request.setSaldoActual(15301F);
+        request.setPersona(persona);
+        
+        ApiResponse<?> response = api.getGenericVantageNoAportantes(xApiKey, request);
+
+        Assert.assertTrue(estatusOK.equals(response.getStatusCode()));
+        
+        if(estatusOK.equals(response.getStatusCode())) {
+            Respuesta responseOK = (Respuesta) response.getData();
+            logger.info("Vantage NO Aportantes Test: "+responseOK.toString());
+        }
+        
+    }catch (ApiException e) {
+        if(!estatusNoContent.equals(e.getCode())) {
+            logger.info("Error getVantageNoAportantesTest: "+e.getResponseBody());
+        }
+        Assert.assertTrue(estatusOK.equals(e.getCode()));
+    }        
 }
 ```
 
